@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using TERA_Tweaker.init;
 
 namespace TERA_Tweaker
@@ -22,68 +24,11 @@ namespace TERA_Tweaker
             Properties.Settings.Default.Save();
         }
 
-        private void sliderPerformance_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            //Coming Soon
-        }
-
-        private void buttonCustomSettings_Click(object sender, RoutedEventArgs e)
-        {
-            //Comming Soon
-        }
-
-        private void buttonResetIniTweaks_Click(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
-        private void buttonApplyIniTweaks_Click(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
-        private void buttonResetFileTweaks_Click(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
-        private void buttonApplyFileTweaks_Click(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
-        private void labelKoreanUIFiles_Checked(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
-        private void labelRmGunnerAnims_Checked(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
-        private void labelRmBrawlerAnims_Checked(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
-        private void labelRmReaperAnims_Checked(object sender, RoutedEventArgs e)
-        {
-            //Coming Soon
-        }
-
         private void buttonCustomSettings_Click(object sender, RoutedEventArgs e)
         {
             CustomTweaksWindow ctw = new CustomTweaksWindow();
             ctw.ShowDialog();
         }
-
-        private void sliderPerformance_Drop(object sender, DragEventArgs e)
-        {
-            
-        }
-
-
 
         private void sliderPerformance_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -113,16 +58,6 @@ namespace TERA_Tweaker
                     labelCurrentPreset.Content = "Best Quality";
                     break;
             }
-        }
-
-        private void sliderPerformance_DragEnter(object sender, DragEventArgs e)
-        {
-
-        }
-
-        private void sliderPerformance_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
-        {
-            
         }
 
         private void buttonResetIniTweaks_Click(object sender, RoutedEventArgs e)
