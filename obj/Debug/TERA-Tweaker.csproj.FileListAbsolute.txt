@@ -12,3 +12,4 @@ C:\Users\Angelo Cali\Documents\Visual Studio 2015\Projects\TERA-Tweaker\obj\Debu
 C:\Users\Angelo Cali\Documents\Visual Studio 2015\Projects\TERA-Tweaker\obj\Debug\TERA-Tweaker.csproj.GenerateResource.Cache
 C:\Users\Angelo Cali\Documents\Visual Studio 2015\Projects\TERA-Tweaker\obj\Debug\TERA-Tweaker.exe
 C:\Users\Angelo Cali\Documents\Visual Studio 2015\Projects\TERA-Tweaker\obj\Debug\TERA-Tweaker.pdb
+C:\Users\Angelo Cali\Documents\Visual Studio 2015\Projects\TERA-Tweaker\obj\Debug\CustomTweaksWindow.g.cs
