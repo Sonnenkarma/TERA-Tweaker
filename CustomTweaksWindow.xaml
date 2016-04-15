@@ -9,12 +9,22 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="label" Content="No impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5"/>
-        <Label x:Name="label_Copy" Content="Little impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Grid.Column="1"/>
-        <Label x:Name="label_Copy1" Content="Clearly impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Grid.Column="2"/>
+        <Label x:Name="label_Copy" Content="Search Tweak" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Height="26" Width="71"/>
+        <Label x:Name="label_Copy1" Content="Impact on FPS" HorizontalAlignment="Left" Margin="135,10,0,0" VerticalAlignment="Top" Padding="0,5" Height="26" Width="130"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="135,42,0,0"/>
+        <Label x:Name="label_Copy2" Content="Impact on visuals" HorizontalAlignment="Left" Margin="260,10,0,0" VerticalAlignment="Top" Padding="0,5" Height="26" Width="130"/>
+        <ComboBox x:Name="comboBox_Copy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="260,42,0,0"/>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,69,0,0" Height="190" Width="654">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Tweak"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Description"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Impact on FPS"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Impact on visuals"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Value"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>
