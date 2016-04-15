@@ -5,16 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TERA_Tweaker"
         mc:Ignorable="d"
-        Title="CustomTweaksWindow" Height="300" Width="682.353">
-    <Grid>
+        Title="CustomTweaksWindow" Height="300" Width="682.353" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    <Grid Height="271">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="271"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="676"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="label" Content="No impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5"/>
-        <Label x:Name="label_Copy" Content="Little impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Grid.Column="1"/>
-        <Label x:Name="label_Copy1" Content="Clearly impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Grid.Column="2"/>
+        <Label x:Name="label_Copy" Content="Filter Tweaks" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Height="26" Width="71"/>
+        <Label x:Name="label_Copy1" Content="Impact on FPS" HorizontalAlignment="Left" Margin="165,10,0,0" VerticalAlignment="Top" Padding="0,5" Height="26" Width="130"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="150"/>
+        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="165,41,0,0" SelectedIndex="0">
+            <ComboBoxItem Content="No filter"/>
+            <ComboBoxItem Content="Low"/>
+            <ComboBoxItem Content="Medium"/>
+            <ComboBoxItem Content="High"/>
+        </ComboBox>
+        <Label x:Name="label_Copy2" Content="Impact on visuals" HorizontalAlignment="Left" Margin="290,10,0,0" VerticalAlignment="Top" Padding="0,5" Height="26" Width="130"/>
+        <ComboBox x:Name="comboBox_Copy" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="290,41,0,0" SelectedIndex="0">
+            <ComboBoxItem Content="No filter"/>
+            <ComboBoxItem Content="None"/>
+            <ComboBoxItem Content="Low"/>
+            <ComboBoxItem Content="Medium"/>
+            <ComboBoxItem Content="High"/>
+        </ComboBox>
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,69,0,0" Height="190" Width="654">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Tweak"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Description"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Impact on FPS"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Impact on visuals"/>
+                <DataGridCheckBoxColumn Binding="{x:Null}" ClipboardContentBinding="{x:Null}" Header="Value"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>

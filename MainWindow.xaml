@@ -17,29 +17,27 @@
         </Grid.ColumnDefinitions>
         <Canvas x:Name="cgrpSlider" Margin="10,10,10,106" UseLayoutRounding="False">
             <Canvas Height="55" Width="357">
-                <Slider x:Name="sliderPerformance" Maximum="5" Minimum="1" TickPlacement="BottomRight" SmallChange="0" Value="1" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Gray" Width="200" IsSnapToTickEnabled="True" Canvas.Left="94" Canvas.Top="31"/>
+                <Slider x:Name="sliderPerformance" Maximum="5" Minimum="1" TickPlacement="BottomRight" SmallChange="0" Value="1" Background="White" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Gray" Width="200" IsSnapToTickEnabled="True" Canvas.Left="94" Canvas.Top="31" Drop="sliderPerformance_Drop" ValueChanged="sliderPerformance_ValueChanged" DragEnter="sliderPerformance_DragEnter" ManipulationCompleted="sliderPerformance_ManipulationCompleted"/>
                 <Label x:Name="labelPerformance" Content="Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Canvas.Top="26" Padding="0,5,5,5"/>
                 <Label x:Name="labelQuality" Content="Quality" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Canvas.Left="309" Canvas.Top="26"/>
                 <Label x:Name="labelOptimizeFor" Content="Optimize for:" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0,5,5,5"/>
-                <Label x:Name="labelCurrentPreset" Content="Custom" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,5,5,5" RenderTransformOrigin="0.487,0.99" Canvas.Left="94"/>
-                <Button x:Name="buttonCustomSettings" Content="Custom settings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20" Padding="1" Canvas.Left="257" Canvas.Top="3"/>
+                <Label x:Name="labelCurrentPreset" Content="Untouched" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,5,5,5" RenderTransformOrigin="0.487,0.99" Canvas.Left="94"/>
+                <Button x:Name="buttonCustomSettings" Content="Custom settings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20" Padding="1" Canvas.Left="257" Canvas.Top="3" Click="buttonCustomSettings_Click"/>
 
             </Canvas>
 
         </Canvas>
-        <GridSplitter x:Name="gridSplitter" HorizontalAlignment="Stretch" Height="1" VerticalAlignment="Top" ResizeDirection="Rows" Background="Gray" Margin="0,78,0,0"/>
         <Label x:Name="labelAdditionalTweaks" Content="Additional tweaks:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Grid.Row="1" Height="26" Width="107" Padding="0,5,5,5"/>
-        <CheckBox x:Name="labelKoreanUIFiles" Content="Install Korean UI Files (Recommended)" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="252" Height="15"/>
-        <CheckBox x:Name="labelRmGunnerAnims" Content="Remove Gunner animations" HorizontalAlignment="Left" Margin="10,61,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="15"/>
-        <CheckBox x:Name="labelRmBrawlerAnims" Content="Remove Brawler animations" HorizontalAlignment="Left" Margin="10,81,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="15"/>
-        <CheckBox x:Name="labelRmReaperAnims" Content="Remove Reaper animations" HorizontalAlignment="Left" Margin="10,101,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="15"/>
-        <Button x:Name="buttonResetFileTweaks" Content="Revert to original state" HorizontalAlignment="Left" Margin="122,138,0,0" VerticalAlignment="Top" Width="140" Height="20" Grid.Row="1"/>
-        <Button x:Name="buttonApplyFileTweaks" Content="Apply tweaks" HorizontalAlignment="Left" Margin="267,138,0,0" VerticalAlignment="Top" Width="100" Height="20" Grid.Row="1"/>
+        <CheckBox x:Name="checkboxKoreanUIFiles" Content="Install Korean UI Files (Recommended)" HorizontalAlignment="Left" Margin="10,41,0,0" Grid.Row="1" VerticalAlignment="Top" Width="252" Height="15"/>
+        <CheckBox x:Name="checkboxRmGunnerAnims" Content="Remove Gunner animations" HorizontalAlignment="Left" Margin="10,61,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="15"/>
+        <CheckBox x:Name="checkboxRmBrawlerAnims" Content="Remove Brawler animations" HorizontalAlignment="Left" Margin="10,81,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="15"/>
+        <CheckBox x:Name="checkboxRmReaperAnims" Content="Remove Reaper animations" HorizontalAlignment="Left" Margin="10,101,0,0" Grid.Row="1" VerticalAlignment="Top" Width="200" Height="15"/>
+        <Button x:Name="buttonResetFileTweaks" Content="Revert to original state" HorizontalAlignment="Left" Margin="122,138,0,0" VerticalAlignment="Top" Width="140" Height="20" Grid.Row="1" Click="buttonResetFileTweaks_Click"/>
+        <Button x:Name="buttonApplyFileTweaks" Content="Apply tweaks" HorizontalAlignment="Left" Margin="267,138,0,0" VerticalAlignment="Top" Width="100" Height="20" Grid.Row="1" Click="buttonApplyFileTweaks_Click"/>
         <Label x:Name="labelCredits" Content="Credits fly out to Bernkastel, TechDude01, Story, Loriri and all the &#xD;&#xA;other people who worked out ways to improve the performance." HorizontalAlignment="Left" Margin="10,8.275,0,0" Grid.Row="2" VerticalAlignment="Top" Height="42" Width="357" Padding="0,5"/>
-        <Button x:Name="buttonApplyIniTweaks" Content="Apply changes" HorizontalAlignment="Left" Margin="267,88,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
-        <Button x:Name="buttonResetIniTweaks" Content="Revert to original files" HorizontalAlignment="Left" Margin="122,88,0,0" VerticalAlignment="Top" Width="140" Height="20"/>
+        <Button x:Name="buttonApplyIniTweaks" Content="Apply changes" HorizontalAlignment="Left" Margin="267,88,0,0" VerticalAlignment="Top" Width="100" Height="20" Click="buttonApplyIniTweaks_Click"/>
+        <Button x:Name="buttonResetIniTweaks" Content="Revert to original files" HorizontalAlignment="Left" Margin="122,88,0,0" VerticalAlignment="Top" Width="140" Height="20" Click="buttonResetIniTweaks_Click"/>
         <GridSplitter x:Name="gridSplitter_Copy" HorizontalAlignment="Stretch" Height="1" VerticalAlignment="Top" ResizeDirection="Rows" Background="Gray" Grid.Row="1"/>
-        <GridSplitter x:Name="gridSplitter_Copy1" HorizontalAlignment="Stretch" Height="1" VerticalAlignment="Top" ResizeDirection="Rows" Background="Gray" Grid.Row="1" Margin="0,125,0,0"/>
         <GridSplitter x:Name="gridSplitter_Copy2" HorizontalAlignment="Stretch" Height="1" VerticalAlignment="Top" ResizeDirection="Rows" Background="Gray" Grid.Row="1" Margin="0,170,0,0" Grid.RowSpan="2"/>
 
     </Grid>
