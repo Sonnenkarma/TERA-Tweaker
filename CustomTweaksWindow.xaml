@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TERA_Tweaker"
         mc:Ignorable="d"
+<<<<<<< HEAD
         Title="CustomTweaksWindow" Height="302.521" Width="682.353">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -34,6 +35,18 @@
             <Button Content="High"/>
         </ComboBox>
         <Label x:Name="label_Copy1" Content="Filter visuals impact" HorizontalAlignment="Left" Margin="260,10,0,0" VerticalAlignment="Top" Padding="0,5"/>
+=======
+        Title="CustomTweaksWindow" Height="300" Width="682.353">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="label" Content="No impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5"/>
+        <Label x:Name="label_Copy" Content="Little impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Grid.Column="1"/>
+        <Label x:Name="label_Copy1" Content="Clearly impact on visuals" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Padding="0,5" Grid.Column="2"/>
+>>>>>>> refs/remotes/origin/master
 
     </Grid>
 </Window>
