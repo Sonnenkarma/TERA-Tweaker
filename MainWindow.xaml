@@ -22,7 +22,7 @@
                 <Label x:Name="labelQuality" Content="Quality" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="Gray" Canvas.Left="309" Canvas.Top="26"/>
                 <Label x:Name="labelOptimizeFor" Content="Optimize for:" HorizontalAlignment="Left" VerticalAlignment="Top" Padding="0,5,5,5"/>
                 <Label x:Name="labelCurrentPreset" Content="Custom" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="0,5,5,5" RenderTransformOrigin="0.487,0.99" Canvas.Left="94"/>
-                <Button x:Name="buttonCustomSettings" Content="Custom settings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20" Padding="1" Canvas.Left="257" Canvas.Top="3"/>
+                <Button x:Name="buttonCustomSettings" Content="Custom settings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="20" Padding="1" Canvas.Left="257" Canvas.Top="3" Click="buttonCustomSettings_Click"/>
 
             </Canvas>
 

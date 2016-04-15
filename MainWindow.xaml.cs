@@ -24,5 +24,11 @@ namespace TERA_Tweaker
         {
             InitializeComponent();
         }
+
+        private void buttonCustomSettings_Click(object sender, RoutedEventArgs e)
+        {
+            CustomTweaksWindow ctw = new CustomTweaksWindow();
+            ctw.ShowDialog();
+        }
     }
 }
