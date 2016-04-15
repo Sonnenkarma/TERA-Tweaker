@@ -1,4 +1,2 @@
-obj/Debug/TERA-Tweaker_MarkupCompile.i.cache
-obj/Debug/TERA-Tweaker_MarkupCompile.lref
-obj/Debug/TERA-Tweaker_MarkupCompile.i.lref
-*.lref
+obj/
+bin/
