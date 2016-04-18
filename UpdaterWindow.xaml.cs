@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.ComponentModel;
 using TERA_Tweaker.updater;
 
 namespace TERA_Tweaker
@@ -16,8 +17,10 @@ namespace TERA_Tweaker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Updater.Update();
+            var updater = new Updater();
+            updater.Update();
             this.Close();
         }
+
     }
 }

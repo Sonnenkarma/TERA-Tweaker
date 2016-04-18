@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Windows;
+using System.Reflection;
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,10 +9,14 @@ using System.Threading.Tasks;
 
 namespace TERA_Tweaker.updater
 {
-    class Updater
+    class Updater : DependencyObject
     {
-        public static void Update()
+
+        public string CurrentUpdateStatus;
+
+        public void Update()
         {
+            CurrentUpdateStatus = "Checking for updates...";
             if (newPresetsAvailable())
             {
                 UpdatePresets();
@@ -25,19 +32,19 @@ namespace TERA_Tweaker.updater
         }
 
         #region Update Checks Region
-        private static bool newPresetsAvailable()
+        private bool newPresetsAvailable()
         {
             // TODO Add check preset version code here
             return true;
         }
 
-        private static bool newKoreanUIFilesAvailable()
+        private bool newKoreanUIFilesAvailable()
         {
             // TODO Add check Korean UI Files version code here
             return true;
         }
 
-        private static bool newEmptyVideoFilesAvailable()
+        private bool newEmptyVideoFilesAvailable()
         {
             // TODO Add check Empty Video Files version code here
             return true;
@@ -45,18 +52,21 @@ namespace TERA_Tweaker.updater
         #endregion
 
         #region Update Files Region
-        private static void UpdatePresets()
+        private void UpdatePresets()
         {
+            CurrentUpdateStatus = "Updating presets...";
             // TODO Add code for downloading presets
         }
 
-        private static void UpdateKoreanUIFiles()
+        private void UpdateKoreanUIFiles()
         {
+            CurrentUpdateStatus = "Updating Korean UI Files...";
             // TODO Add code for downloading Korean UI Files
         }
 
-        private static void UpdateEmptyVideoFiles()
+        private void UpdateEmptyVideoFiles()
         {
+            CurrentUpdateStatus = "Updating Empty Video Files...";
             // TODO Add code for downloading Empty Video Files
         }
         #endregion
