@@ -47,5 +47,10 @@ namespace TERA_Tweaker.classes
         {
             return Read(Key, Section).Length > 0;
         }
+
+        public string GetPath()
+        {
+            return Path;
+        }
     }
 }

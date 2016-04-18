@@ -26,5 +26,8 @@ namespace TERA_Tweaker.consts
         public const string PRESET_BALANCED = "S1Engine_B.ini";
         public const string PRESET_GOOD_QUALITY = "S1Engine_GQ.ini";
         public const string PRESET_BEST_QUALITY = "S1Engine_BQ.ini";
+
+        //Name for the backup untouched file
+        public const string UNTOUCHED_S1ENGINE = "S1Engine_Untouched.ini";
     }
 }
