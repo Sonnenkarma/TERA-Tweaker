@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TERA_Tweaker"
         mc:Ignorable="d"
-        Title="TERA-Tweaker by Strikeout" Height="373.53" Width="382.862" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+        Title="TERA-Tweaker by Strikeout" Height="373.53" Width="382.862" ResizeMode="NoResize" SizeToContent="WidthAndHeight" Loaded="Window_Loaded">
     <Grid Margin="0">
         <Grid.RowDefinitions>
             <RowDefinition Height="117"/>

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using TERA_Tweaker.init;
+using TERA_Tweaker.updater;
 
 namespace TERA_Tweaker
 {
@@ -11,17 +12,19 @@ namespace TERA_Tweaker
     public partial class MainWindow : Window
     {
 
-        private bool dragStarted = false;
-
         public MainWindow()
         {
             InitializeComponent();
 
             //First get the game directory for futher actions 
             var gameDir = Initializer.GetGameDirectory();
+
             //Save gamedir in app settings
             Properties.Settings.Default.GameDir = gameDir;
             Properties.Settings.Default.Save();
+
+            //Create Directories for Game files
+            Initializer.CreateDirectoriesForTweakFiles();
         }
 
         private void buttonCustomSettings_Click(object sender, RoutedEventArgs e)
@@ -59,6 +62,7 @@ namespace TERA_Tweaker
                     break;
             }
         }
+        
 
         private void buttonResetIniTweaks_Click(object sender, RoutedEventArgs e)
         {
@@ -94,6 +98,12 @@ namespace TERA_Tweaker
         private void buttonResetFileTweaks_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Tweaks resetted.");
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var updaterWindow = new UpdaterWindow();
+            updaterWindow.ShowDialog();
         }
     }
 }

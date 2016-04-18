@@ -77,5 +77,21 @@ namespace TERA_Tweaker.init
 
             return string.Empty; //empty string if selection cancelled
         }
+
+        public static void CreateDirectoriesForTweakFiles()
+        {
+            if (!Directory.Exists(BaseConsts.EMPTYVIDEOFILES_DIR))
+            {
+                Directory.CreateDirectory(BaseConsts.EMPTYVIDEOFILES_DIR);
+            }
+            if (!Directory.Exists(BaseConsts.KOREANUIFILES_DIR))
+            {
+                Directory.CreateDirectory(BaseConsts.KOREANUIFILES_DIR);
+            }
+            if (!Directory.Exists(BaseConsts.PRESETS_DIR))
+            {
+                Directory.CreateDirectory(BaseConsts.PRESETS_DIR);
+            }
+        }
     }
 }
