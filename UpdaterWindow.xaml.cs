@@ -10,6 +10,7 @@ namespace TERA_Tweaker
     /// </summary>
     public partial class UpdaterWindow : Window
     {
+        static Updater updater = new Updater();
         public UpdaterWindow()
         {
             InitializeComponent();
@@ -17,7 +18,6 @@ namespace TERA_Tweaker
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var updater = new Updater();
             updater.Update();
             this.Close();
         }

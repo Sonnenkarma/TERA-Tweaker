@@ -11,12 +11,22 @@ namespace TERA_Tweaker.updater
 {
     class Updater : DependencyObject
     {
+        public static readonly DependencyProperty UpdateStatusProperty;
+        public string UpdateStatus
+        {
+            get { return (string)GetValue(UpdateStatusProperty); }
+            set { SetValue(UpdateStatusProperty, value); }
+        }
 
-        public string CurrentUpdateStatus;
+
+        static Updater()
+        {
+            UpdateStatusProperty = DependencyProperty.Register("UpdateStatus", typeof(string), typeof(Updater));
+        }
 
         public void Update()
         {
-            CurrentUpdateStatus = "Checking for updates...";
+            UpdateStatus = "Checking for updates...";
             if (newPresetsAvailable())
             {
                 UpdatePresets();
@@ -54,19 +64,19 @@ namespace TERA_Tweaker.updater
         #region Update Files Region
         private void UpdatePresets()
         {
-            CurrentUpdateStatus = "Updating presets...";
+            UpdateStatus = "Updating presets...";
             // TODO Add code for downloading presets
         }
 
         private void UpdateKoreanUIFiles()
         {
-            CurrentUpdateStatus = "Updating Korean UI Files...";
+            UpdateStatus = "Updating Korean UI Files...";
             // TODO Add code for downloading Korean UI Files
         }
 
         private void UpdateEmptyVideoFiles()
         {
-            CurrentUpdateStatus = "Updating Empty Video Files...";
+            UpdateStatus = "Updating Empty Video Files...";
             // TODO Add code for downloading Empty Video Files
         }
         #endregion
