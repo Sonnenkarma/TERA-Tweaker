@@ -19,5 +19,12 @@ namespace TERA_Tweaker.consts
         public const string PRESETS_DIR = "presets";
         public const string KOREANUIFILES_DIR = "koreanuifiles";
         public const string EMPTYVIDEOFILES_DIR = "emptyvideofiles";
+
+        //Config preset names
+        public const string PRESET_BEST_PERFORMANCE = "S1Engine_BP.ini";
+        public const string PRESET_GOOD_PERFORMANCE = "S1Engine_GP.ini";
+        public const string PRESET_BALANCED = "S1Engine_B.ini";
+        public const string PRESET_GOOD_QUALITY = "S1Engine_GQ.ini";
+        public const string PRESET_BEST_QUALITY = "S1Engine_BQ.ini";
     }
 }

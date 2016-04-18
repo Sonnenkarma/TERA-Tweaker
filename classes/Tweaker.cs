@@ -18,6 +18,48 @@ namespace TERA_Tweaker.classes
             LoadConfigFiles();
         }
 
+        public void ApplyChanges()
+        {
+            if (optimizationLevel == OptimizationType.Untouched)
+                return;
+
+            if (optimizationLevel == OptimizationType.Custom)
+            {
+                //Using Custom Changes
+                ApplyCustomChanges();
+            }
+            else
+            {
+                //Using presets
+                UsePreset();
+            }
+        }
+
+        private void ApplyCustomChanges()
+        {
+            //TODO 
+        }
+
+        private void UsePreset()
+        {
+            switch (optimizationLevel)
+            {
+                case OptimizationType.BestPerformance:
+                    break;
+                case OptimizationType.GoodPerformance:
+                    break;
+                case OptimizationType.Balanced:
+                    break;
+                case OptimizationType.GoodQuality:
+                    break;
+                case OptimizationType.BestQuality:
+                    break;
+                default:
+                    Logger.Warn("Unknown OptimizationType for presets: {0}", optimizationLevel);
+                    break;
+            }
+        }
+
         public void SetOptimizationLevel(OptimizationType optimization)
         {
             optimizationLevel = optimization;
@@ -69,7 +111,7 @@ namespace TERA_Tweaker.classes
             }
             else
             {
-                //TODO: LOGGER!
+                Logger.Warn("Config File '{0}' doesn't exist or wasn't loaded properly", iniFile);
                 return false;
             }
         }
@@ -88,7 +130,7 @@ namespace TERA_Tweaker.classes
                     ConfigFiles.Add(iniFile, new IniFile(path));
                 else
                 {
-                    //TODO: LOGGING!
+                    Logger.Warn("File '{0}' doesn't exist in path '{1}'", iniFile, path);
                 }
             }
         }
