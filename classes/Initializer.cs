@@ -72,7 +72,8 @@ namespace TERA_Tweaker.init
             // Show dialig
             if (dlg.ShowDialog() == true)
             {
-                return dlg.FileName; //return selection
+                var dlgResult = dlg.FileName; //TERA-Launcher.exe
+                return new FileInfo(dlgResult).DirectoryName;
             }
 
             return string.Empty; //empty string if selection cancelled

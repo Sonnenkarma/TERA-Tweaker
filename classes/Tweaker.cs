@@ -80,7 +80,7 @@ namespace TERA_Tweaker.classes
             //Now copy our preset to the game 
             string presetPath = PresetConfigs[presetFile].FullName.ToString();
             string gameConfigPath = string.Format("{0}\\{1}\\{2}", _gameDir, BaseConsts.CONFIG_DIR, BaseConsts.S1ENGINE);
-            File.Copy(presetPath, gameConfigPath);
+            File.Copy(presetPath, gameConfigPath, true);
         }
 
         private void BackUpUserConfiguration()
@@ -149,37 +149,51 @@ namespace TERA_Tweaker.classes
 
         private bool FilesAreEqual(FileInfo first, FileInfo second)
         {
-            byte[] firstHash = MD5.Create().ComputeHash(first.OpenRead());
-            byte[] secondHash = MD5.Create().ComputeHash(second.OpenRead());
+            FileStream fs1 = first.OpenRead();
+            FileStream fs2 = second.OpenRead();
+
+            byte[] firstHash = MD5.Create().ComputeHash(fs1);
+            byte[] secondHash = MD5.Create().ComputeHash(fs2);
 
             for (int i = 0; i < firstHash.Length; i++)
             {
                 if (firstHash[i] != secondHash[i])
+                {
+                    //Close both FileStreams and return the result
+                    fs1.Close();
+                    fs2.Close();
                     return false;
+                }
             }
+
+            //Close both FileStreams and return the result
+            fs1.Close();
+            fs2.Close();
             return true;
         }
 
         private void LoadPresets()
         {
             if (PresetConfigs == null)
+            {
                 PresetConfigs = new Dictionary<string, FileInfo>();
 
-            string[] iniFiles = new string[] { 
+                string[] iniFiles = new string[] { 
                 BaseConsts.PRESET_BEST_PERFORMANCE,
                 BaseConsts.PRESET_GOOD_PERFORMANCE, 
                 BaseConsts.PRESET_BALANCED, 
                 BaseConsts.PRESET_GOOD_QUALITY, 
                 BaseConsts.PRESET_BEST_QUALITY };
 
-            foreach (var iniFile in iniFiles)
-            {
-                var path = string.Format("{0}\\{1}\\{2}", Directory.GetCurrentDirectory(), BaseConsts.PRESETS_DIR, iniFile);
-                if (File.Exists(path))
-                    PresetConfigs.Add(iniFile, new FileInfo(path));
-                else
+                foreach (var iniFile in iniFiles)
                 {
-                    Logger.Warn("File '{0}' doesn't exist in path '{1}'", iniFile, path);
+                    var path = string.Format("{0}\\{1}\\{2}", Directory.GetCurrentDirectory(), BaseConsts.PRESETS_DIR, iniFile);
+                    if (File.Exists(path))
+                        PresetConfigs.Add(iniFile, new FileInfo(path));
+                    else
+                    {
+                        Logger.Warn("File '{0}' doesn't exist in path '{1}'", iniFile, path);
+                    }
                 }
             }
         }

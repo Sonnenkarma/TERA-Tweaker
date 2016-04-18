@@ -84,6 +84,7 @@ namespace TERA_Tweaker
 
         private void buttonApplyIniTweaks_Click(object sender, RoutedEventArgs e)
         {
+            _Tweaker.ApplyChanges();
             MessageBox.Show("Settings applied.");
         }
 
