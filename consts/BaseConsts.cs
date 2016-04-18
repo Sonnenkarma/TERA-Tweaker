@@ -10,6 +10,5 @@ namespace TERA_Tweaker.consts
         public const string S1ENGINE = "S1Engine.ini";
         public const string S1INPUT = "S1Input.ini";
         public const string LAUNCHER_FILENAME = "TERA-Launcher.exe";
-
     }
 }
