@@ -77,15 +77,34 @@ namespace TERA_Tweaker
 
         private void buttonResetIniTweaks_Click(object sender, RoutedEventArgs e)
         {
-            labelCurrentPreset.Content = "Untouched";
-            _Tweaker.SetOptimizationLevel(OptimizationType.Untouched);
-            MessageBox.Show("Settings resetted.");
+            try
+            {
+                if (_Tweaker.ResetConfigChanges())
+                {
+                    labelCurrentPreset.Content = "Untouched";
+                    _Tweaker.SetOptimizationLevel(OptimizationType.Untouched);
+                }
+            }
+            catch (Exception exc)
+            {
+                Logger.Error("Unexpected Error occured.", exc, null);
+                MessageBox.Show("Unexpected Error occured. Check Log for more details", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void buttonApplyIniTweaks_Click(object sender, RoutedEventArgs e)
         {
-            _Tweaker.ApplyChanges();
-            MessageBox.Show("Settings applied.");
+            try
+            {
+                _Tweaker.ApplyConfigChanges();
+                MessageBox.Show("Settings applied.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception exc)
+            {
+                Logger.Error("Unexpected Error occured.", exc, null);
+                MessageBox.Show("Unexpected Error occured. Check Log for more details", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void buttonApplyFileTweaks_Click(object sender, RoutedEventArgs e)

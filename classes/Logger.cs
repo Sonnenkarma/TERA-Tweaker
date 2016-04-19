@@ -107,7 +107,7 @@ namespace TERA_Tweaker.classes
         private static string GetResolvedMessage(string message, params object[] args)
         {
             string result;
-            if (args.Count() > 0)
+            if (args != null && args.Count() > 0)
                 result = string.Format(message, args);
             else
                 result = message;

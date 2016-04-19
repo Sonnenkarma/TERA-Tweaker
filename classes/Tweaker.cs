@@ -22,7 +22,66 @@ namespace TERA_Tweaker.classes
             LoadConfigFiles();
         }
 
-        public void ApplyChanges()
+        public bool ResetConfigChanges()
+        {
+            bool result = false;
+
+            string backupPath = string.Format("{0}\\{1}\\{2}", Directory.GetCurrentDirectory(), BaseConsts.PRESETS_DIR, BaseConsts.UNTOUCHED_S1ENGINE);
+            FileInfo file = new FileInfo(backupPath);
+
+            if (file.Exists)
+            {
+                string currentConfigPath = string.Format("{0}\\{1}\\{2}", _gameDir, BaseConsts.CONFIG_DIR, BaseConsts.S1ENGINE);
+                FileInfo currentConfig = new FileInfo(currentConfigPath);
+
+                bool copyIsAllowed;
+                LoadPresets();
+                if (FileIsEqualWithPreset(currentConfig))
+                {
+                    //It is one of our presets, just overwrite it and finish the code
+                    copyIsAllowed = true;
+                }
+                else
+                {
+                    //It's an unknown config which would be overwritten with the backup. Ask the user first
+                    copyIsAllowed = AskUserToOverwrite();
+                }
+
+                if (copyIsAllowed)
+                {
+                    //Remove Read-Only
+                    RemoveReadOnlyFlagIfSet(currentConfigPath);
+                    File.Copy(backupPath, currentConfigPath, true);
+
+                    //Set Read-Only again
+                    SetReadOnlyFlag(currentConfigPath);
+
+                    //Delete Backup
+                    File.Delete(backupPath);
+
+                    MessageBox.Show("Reset was successfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    result = true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("There is no backup file, which could be used for resetting the changes. Please delete the S1Engine.ini and run the game, if you wan't a clean configuration.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
+                Logger.Info("No backup file found at {0}", backupPath);
+            }
+
+            return result;
+        }
+
+        private bool AskUserToOverwrite()
+        {
+            var result = MessageBox.Show("The current configuration isn't a preset of this tool. Are you sure, you want to overwrite it with the backup, which was made by this tool?", "Overwrite?", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+                return true;
+            else
+                return false;
+        }
+
+        public void ApplyConfigChanges()
         {
             if (optimizationLevel == OptimizationType.Untouched)
                 return;
@@ -80,7 +139,28 @@ namespace TERA_Tweaker.classes
             //Now copy our preset to the game 
             string presetPath = PresetConfigs[presetFile].FullName.ToString();
             string gameConfigPath = string.Format("{0}\\{1}\\{2}", _gameDir, BaseConsts.CONFIG_DIR, BaseConsts.S1ENGINE);
+
+            //Remove Read-Only Flag if set
+            RemoveReadOnlyFlagIfSet(gameConfigPath);
+
+            //Copy the preset
             File.Copy(presetPath, gameConfigPath, true);
+
+            //Set Read-Only again
+            SetReadOnlyFlag(gameConfigPath);
+        }
+
+        private void RemoveReadOnlyFlagIfSet(string gameConfigPath)
+        {
+            var file = new FileInfo(gameConfigPath);
+            if (file.IsReadOnly)
+                file.IsReadOnly = false;
+        }
+
+        private void SetReadOnlyFlag(string gameConfigPath)
+        {
+            var file = new FileInfo(gameConfigPath);
+            file.IsReadOnly = true;
         }
 
         private void BackUpUserConfiguration()
