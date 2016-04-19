@@ -31,6 +31,9 @@ namespace TERA_Tweaker.classes
 
             if (file.Exists)
             {
+                //Remove Read-Only of backup if set
+                RemoveReadOnlyFlagIfSet(backupPath);
+
                 string currentConfigPath = string.Format("{0}\\{1}\\{2}", _gameDir, BaseConsts.CONFIG_DIR, BaseConsts.S1ENGINE);
                 FileInfo currentConfig = new FileInfo(currentConfigPath);
 
@@ -150,9 +153,9 @@ namespace TERA_Tweaker.classes
             SetReadOnlyFlag(gameConfigPath);
         }
 
-        private void RemoveReadOnlyFlagIfSet(string gameConfigPath)
+        private void RemoveReadOnlyFlagIfSet(string filePath)
         {
-            var file = new FileInfo(gameConfigPath);
+            var file = new FileInfo(filePath);
             if (file.IsReadOnly)
                 file.IsReadOnly = false;
         }
