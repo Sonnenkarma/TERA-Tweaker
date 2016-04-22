@@ -15,6 +15,7 @@ namespace TERA_Tweaker.classes
         private OptimizationType optimizationLevel;
         private PartyBuffOptions partyBuffOption;
 
+        public bool installKoreanUIFiles { get; set; }
         public bool removeGunnerAnimations { get; set; }
         public bool removeBrawlerAnimations { get; set; }
         public bool removeReaperAnimations { get; set; }
@@ -123,75 +124,77 @@ namespace TERA_Tweaker.classes
 
         private bool InstallKoreanUIFiles()
         {
-            bool copyAllowed;
-
-            //Check if "_S1UI" exists
-            string pathS1UI = string.Format("{0}\\{1}", _gameDir, BaseConsts.S1UI_DIR);
-
-            if (Directory.Exists(pathS1UI))
+            if (installKoreanUIFiles)
             {
-                //There is already an _S1UI Folder. Check if it contains files
-                if (Directory.GetFiles(pathS1UI).Count() > 0)
+                bool copyAllowed;
+
+                //Check if "_S1UI" exists
+                string pathS1UI = string.Format("{0}\\{1}", _gameDir, BaseConsts.S1UI_DIR);
+
+                if (Directory.Exists(pathS1UI))
                 {
-                    //There are files - Overwrite them? 
-                    var mbResult = MessageBox.Show("There are already UI Mods installed! \nDo you want to overwrite them?", "Overwrite", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-                    switch (mbResult)
+                    //There is already an _S1UI Folder. Check if it contains files
+                    if (Directory.GetFiles(pathS1UI).Count() > 0)
                     {
-                        case MessageBoxResult.Yes:
-                            copyAllowed = true;
-                            break;
-                        case MessageBoxResult.No:
-                            copyAllowed = false;
-                            break;
-                        default:
-                            throw new Exception("Cancelled by user");
+                        //There are files - Overwrite them? 
+                        var mbResult = MessageBox.Show("There are already UI Mods installed! \nDo you want to overwrite them?", "Overwrite", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                        switch (mbResult)
+                        {
+                            case MessageBoxResult.Yes:
+                                copyAllowed = true;
+                                break;
+                            case MessageBoxResult.No:
+                                copyAllowed = false;
+                                break;
+                            default:
+                                throw new Exception("Cancelled by user");
+                        }
+                    }
+                    else
+                    {
+                        copyAllowed = true;
                     }
                 }
                 else
                 {
+                    //Create the Mod directory
+                    Directory.CreateDirectory(pathS1UI);
                     copyAllowed = true;
                 }
-            }
-            else
-            {
-                //Create the Mod directory
-                Directory.CreateDirectory(pathS1UI);
-                copyAllowed = true;
-            }
 
-            //Copy files 
-            if (copyAllowed)
-            {
-                var koreanFiles = Directory.GetFiles(BaseConsts.KOREANUIFILES_DIR);
-
-                foreach (var koreanFile in koreanFiles)
+                //Copy files 
+                if (copyAllowed)
                 {
-                    FileInfo file = new FileInfo(koreanFile);
-                    string fileName = file.Name;
-                    string destinationFile = string.Format("{0}\\{1}", pathS1UI, fileName);
-                    File.Copy(koreanFile, destinationFile, true);
-                }
+                    var koreanFiles = Directory.GetFiles(BaseConsts.KOREANUIFILES_DIR);
+
+                    foreach (var koreanFile in koreanFiles)
+                    {
+                        FileInfo file = new FileInfo(koreanFile);
+                        string fileName = file.Name;
+                        string destinationFile = string.Format("{0}\\{1}", pathS1UI, fileName);
+                        File.Copy(koreanFile, destinationFile, true);
+                    }
 
 
-                //Special PartyBuff Option selected?
-                string source;
-                string destination = string.Format("{0}\\{1}", pathS1UI, BaseConsts.PARTYWINDOW);
-                switch (partyBuffOption)
-                {
-                    case PartyBuffOptions.Default:
-                        //Nothing to do, was set already
-                        break;
-                    case PartyBuffOptions.WithoutPurpleBar:
-                        source = string.Format("{0}\\{1}", BaseConsts.PARTYWINDOWS_DIR, BaseConsts.PARTYWINDOW_WITHOUT_PURPLE);
-                        File.Copy(source, destination, true);
-                        break;
-                    case PartyBuffOptions.WithPurpleBar:
-                        source = string.Format("{0}\\{1}", BaseConsts.PARTYWINDOWS_DIR, BaseConsts.PARTYWINDOW_WITH_PURLE);
-                        File.Copy(source, destination, true);
-                        break;
+                    //Special PartyBuff Option selected?
+                    string source;
+                    string destination = string.Format("{0}\\{1}", pathS1UI, BaseConsts.PARTYWINDOW);
+                    switch (partyBuffOption)
+                    {
+                        case PartyBuffOptions.Default:
+                            //Nothing to do, was set already
+                            break;
+                        case PartyBuffOptions.WithoutPurpleBar:
+                            source = string.Format("{0}\\{1}", BaseConsts.PARTYWINDOWS_DIR, BaseConsts.PARTYWINDOW_WITHOUT_PURPLE);
+                            File.Copy(source, destination, true);
+                            break;
+                        case PartyBuffOptions.WithPurpleBar:
+                            source = string.Format("{0}\\{1}", BaseConsts.PARTYWINDOWS_DIR, BaseConsts.PARTYWINDOW_WITH_PURLE);
+                            File.Copy(source, destination, true);
+                            break;
+                    }
                 }
             }
-
 
             return true; //If code reaches this part without error, it was successful
         }

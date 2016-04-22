@@ -112,6 +112,8 @@ namespace TERA_Tweaker
 
             if (checkboxKoreanUIFiles.IsChecked.Value)
             {
+                _Tweaker.installKoreanUIFiles = true;
+
                 var msg = "Would you like to remove the party buff bars? ";
                 msg += "This could interfere with your partyplay as priest or mystic.";
                 MessageBoxResult mbResult = MessageBox.Show(msg, "Remove Partybuffs?", MessageBoxButton.YesNoCancel);
@@ -148,6 +150,7 @@ namespace TERA_Tweaker
 
         private void buttonResetFileTweaks_Click(object sender, RoutedEventArgs e)
         {
+            _Tweaker.ResetAdditionalTweaks();
             MessageBox.Show("Tweaks resetted.");
         }
 
