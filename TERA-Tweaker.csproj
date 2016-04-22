@@ -60,6 +60,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="classes\FileManager.cs" />
     <Compile Include="classes\Logger.cs" />
     <Compile Include="consts\OptimizationType.cs" />
     <Compile Include="UpdaterWindow.xaml.cs">

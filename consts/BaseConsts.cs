@@ -29,5 +29,6 @@ namespace TERA_Tweaker.consts
 
         //Name for the backup untouched file
         public const string UNTOUCHED_S1ENGINE = "S1Engine_Untouched.ini";
+        public const string CONFIG_BACKUP = "Tweaker_Backup";
     }
 }

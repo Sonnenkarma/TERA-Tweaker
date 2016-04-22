@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
 using System.Windows;
 using TERA_Tweaker.consts;
 
@@ -26,16 +25,14 @@ namespace TERA_Tweaker.classes
         {
             bool result = false;
 
-            string backupPath = string.Format("{0}\\{1}\\{2}", Directory.GetCurrentDirectory(), BaseConsts.PRESETS_DIR, BaseConsts.UNTOUCHED_S1ENGINE);
-            FileInfo file = new FileInfo(backupPath);
+            var file = FileManager.GetS1EngineBackup(_gameDir);
 
             if (file.Exists)
             {
                 //Remove Read-Only of backup if set
-                RemoveReadOnlyFlagIfSet(backupPath);
+                FileManager.RemoveReadOnlyFlagIfSet(file.FullName);
 
-                string currentConfigPath = string.Format("{0}\\{1}\\{2}", _gameDir, BaseConsts.CONFIG_DIR, BaseConsts.S1ENGINE);
-                FileInfo currentConfig = new FileInfo(currentConfigPath);
+                var currentConfig = FileManager.GetCurrentS1Engine(_gameDir);
 
                 bool copyIsAllowed;
                 LoadPresets();
@@ -53,14 +50,14 @@ namespace TERA_Tweaker.classes
                 if (copyIsAllowed)
                 {
                     //Remove Read-Only
-                    RemoveReadOnlyFlagIfSet(currentConfigPath);
-                    File.Copy(backupPath, currentConfigPath, true);
+                    FileManager.RemoveReadOnlyFlagIfSet(currentConfig);
+                    File.Copy(file.FullName, currentConfig.FullName, true);
 
                     //Set Read-Only again
-                    SetReadOnlyFlag(currentConfigPath);
+                    FileManager.SetReadOnlyFlag(currentConfig);
 
                     //Delete Backup
-                    File.Delete(backupPath);
+                    File.Delete(file.FullName);
 
                     MessageBox.Show("Reset was successfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     result = true;
@@ -69,7 +66,7 @@ namespace TERA_Tweaker.classes
             else
             {
                 MessageBox.Show("There is no backup file, which could be used for resetting the changes. Please delete the S1Engine.ini and run the game, if you wan't a clean configuration.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                Logger.Info("No backup file found at {0}", backupPath);
+                Logger.Info("No backup file found at {0}", file.FullName);
             }
 
             return result;
@@ -141,53 +138,38 @@ namespace TERA_Tweaker.classes
 
             //Now copy our preset to the game 
             string presetPath = PresetConfigs[presetFile].FullName.ToString();
-            string gameConfigPath = string.Format("{0}\\{1}\\{2}", _gameDir, BaseConsts.CONFIG_DIR, BaseConsts.S1ENGINE);
+            var currentConfig = FileManager.GetCurrentS1Engine(_gameDir);
 
             //Remove Read-Only Flag if set
-            RemoveReadOnlyFlagIfSet(gameConfigPath);
+            FileManager.RemoveReadOnlyFlagIfSet(currentConfig);
 
             //Copy the preset
-            File.Copy(presetPath, gameConfigPath, true);
+            File.Copy(presetPath, currentConfig.FullName, true);
 
             //Set Read-Only again
-            SetReadOnlyFlag(gameConfigPath);
-        }
-
-        private void RemoveReadOnlyFlagIfSet(string filePath)
-        {
-            var file = new FileInfo(filePath);
-            if (file.IsReadOnly)
-                file.IsReadOnly = false;
-        }
-
-        private void SetReadOnlyFlag(string gameConfigPath)
-        {
-            var file = new FileInfo(gameConfigPath);
-            file.IsReadOnly = true;
+            FileManager.SetReadOnlyFlag(currentConfig);
         }
 
         private void BackUpUserConfiguration()
         {
-            string backupPath = string.Format("{0}\\{1}\\{2}", Directory.GetCurrentDirectory(), BaseConsts.PRESETS_DIR, BaseConsts.UNTOUCHED_S1ENGINE);
-            FileInfo file = new FileInfo(backupPath);
+            var file = FileManager.GetS1EngineBackup(_gameDir);
 
-            string currentConfigPath = string.Format("{0}\\{1}\\{2}", _gameDir, BaseConsts.CONFIG_DIR, BaseConsts.S1ENGINE);
+            var currentConfig = FileManager.GetCurrentS1Engine(_gameDir);
+
             if (!file.Exists)
             {
                 //There is no backup. Just create it
-                File.Copy(currentConfigPath, backupPath);
+                File.Copy(currentConfig.FullName, file.FullName);
             }
             else
             {
-                FileInfo currentConfigFile = new FileInfo(currentConfigPath);
-
                 //There is already a backup. Check if the current configuration is equal with a preset. If not, ask to overwrite it. 
-                if (!FileIsEqualWithPreset(currentConfigFile))
+                if (!FileIsEqualWithPreset(currentConfig))
                 {
                     //Ask if the current backup should be overwritten with the current config file
                     if (OverwriteBackup())
                     {
-                        File.Copy(currentConfigPath, backupPath, true);
+                        File.Copy(currentConfig.FullName, file.FullName, true);
                     }
                 }
             }
@@ -223,36 +205,11 @@ namespace TERA_Tweaker.classes
         {
             foreach (var presetFile in PresetConfigs)
             {
-                if (FilesAreEqual(currentConfigFile, presetFile.Value))
+                if (FileManager.FilesAreEqual(currentConfigFile, presetFile.Value))
                     return true;
             }
 
             return false;
-        }
-
-        private bool FilesAreEqual(FileInfo first, FileInfo second)
-        {
-            FileStream fs1 = first.OpenRead();
-            FileStream fs2 = second.OpenRead();
-
-            byte[] firstHash = MD5.Create().ComputeHash(fs1);
-            byte[] secondHash = MD5.Create().ComputeHash(fs2);
-
-            for (int i = 0; i < firstHash.Length; i++)
-            {
-                if (firstHash[i] != secondHash[i])
-                {
-                    //Close both FileStreams and return the result
-                    fs1.Close();
-                    fs2.Close();
-                    return false;
-                }
-            }
-
-            //Close both FileStreams and return the result
-            fs1.Close();
-            fs2.Close();
-            return true;
         }
 
         private void LoadPresets()
