@@ -9,7 +9,7 @@ namespace TERA_Tweaker.classes
 
         public static FileInfo GetS1EngineBackup(string gameDir)
         {
-            var dirPath = string.Format("{0}\\{1}\\{2}", gameDir, BaseConsts.CONFIG_DIR, BaseConsts.CONFIG_BACKUP);
+            var dirPath = string.Format("{0}\\{1}\\{2}", gameDir, BaseConsts.CONFIG_DIR, BaseConsts.CONFIG_BACKUP_FOLDER);
             if (!Directory.Exists(dirPath))
                 Directory.CreateDirectory(dirPath);
 

@@ -114,18 +114,36 @@ namespace TERA_Tweaker
             {
                 var msg = "Would you like to remove the party buff bars? ";
                 msg += "This could interfere with your partyplay as priest or mystic.";
-                MessageBoxResult mbResult = MessageBox.Show(msg, "Remove Partybuffs?", MessageBoxButton.YesNo);
+                MessageBoxResult mbResult = MessageBox.Show(msg, "Remove Partybuffs?", MessageBoxButton.YesNoCancel);
 
                 if (mbResult == MessageBoxResult.Yes)
                 {
-
+                    msg = "Would you like to remove the purple hp bar, too?";
+                    mbResult = MessageBox.Show(msg, "Remove purple hp bar?", MessageBoxButton.YesNo);
+                    if (mbResult == MessageBoxResult.Yes)
+                        _Tweaker.SetPartyBuffOption(PartyBuffOptions.WithoutPurpleBar);
+                    else if (mbResult == MessageBoxResult.No)
+                        _Tweaker.SetPartyBuffOption(PartyBuffOptions.WithPurpleBar);
+                    else
+                        return; //Cancelled
+                }
+                else if (mbResult == MessageBoxResult.No)
+                {
+                    _Tweaker.SetPartyBuffOption(PartyBuffOptions.Default);
                 }
                 else
-                {
-
-                }
+                    return; //Cancelled
             }
-            MessageBox.Show("Tweaks applied.");
+
+            //Animation Checkboxes
+            _Tweaker.removeGunnerAnimations = checkboxRmGunnerAnims.IsChecked.Value;
+            _Tweaker.removeReaperAnimations = checkboxRmReaperAnims.IsChecked.Value;
+            _Tweaker.removeBrawlerAnimations = checkboxRmBrawlerAnims.IsChecked.Value;
+
+            var result = _Tweaker.ApplyAdditionalTweaks();
+
+            if (result)
+                MessageBox.Show("Tweaks applied.");
         }
 
         private void buttonResetFileTweaks_Click(object sender, RoutedEventArgs e)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using TERA_Tweaker.consts;
 
@@ -12,6 +13,12 @@ namespace TERA_Tweaker.classes
         private Dictionary<string, IniFile> ConfigFiles;
         private Dictionary<string, FileInfo> PresetConfigs;
         private OptimizationType optimizationLevel;
+        private PartyBuffOptions partyBuffOption;
+
+        public bool removeGunnerAnimations { get; set; }
+        public bool removeBrawlerAnimations { get; set; }
+        public bool removeReaperAnimations { get; set; }
+        //public bool removeIntroVideos { get; set; }
 
         public Tweaker(string gameDir)
         {
@@ -25,12 +32,12 @@ namespace TERA_Tweaker.classes
         {
             bool result = false;
 
-            var file = FileManager.GetS1EngineBackup(_gameDir);
+            var s1engineBackup = FileManager.GetS1EngineBackup(_gameDir);
 
-            if (file.Exists)
+            if (s1engineBackup.Exists)
             {
                 //Remove Read-Only of backup if set
-                FileManager.RemoveReadOnlyFlagIfSet(file.FullName);
+                FileManager.RemoveReadOnlyFlagIfSet(s1engineBackup);
 
                 var currentConfig = FileManager.GetCurrentS1Engine(_gameDir);
 
@@ -51,13 +58,13 @@ namespace TERA_Tweaker.classes
                 {
                     //Remove Read-Only
                     FileManager.RemoveReadOnlyFlagIfSet(currentConfig);
-                    File.Copy(file.FullName, currentConfig.FullName, true);
+                    File.Copy(s1engineBackup.FullName, currentConfig.FullName, true);
 
                     //Set Read-Only again
                     FileManager.SetReadOnlyFlag(currentConfig);
 
                     //Delete Backup
-                    File.Delete(file.FullName);
+                    File.Delete(s1engineBackup.FullName);
 
                     MessageBox.Show("Reset was successfull", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     result = true;
@@ -66,7 +73,7 @@ namespace TERA_Tweaker.classes
             else
             {
                 MessageBox.Show("There is no backup file, which could be used for resetting the changes. Please delete the S1Engine.ini and run the game, if you wan't a clean configuration.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
-                Logger.Info("No backup file found at {0}", file.FullName);
+                Logger.Info("No backup file found at {0}", s1engineBackup.FullName);
             }
 
             return result;
@@ -79,6 +86,73 @@ namespace TERA_Tweaker.classes
                 return true;
             else
                 return false;
+        }
+
+        public bool ApplyAdditionalTweaks()
+        {
+            return InstallKoreanUIFiles() && RemoveClassAnimations();
+        }
+
+        private bool InstallKoreanUIFiles()
+        {
+            bool copyAllowed;
+
+            //Check if "_S1UI" exists
+            string pathS1UI = string.Format("{0}\\{1}", _gameDir, BaseConsts.S1UI_DIR);
+
+            if (Directory.Exists(pathS1UI))
+            {
+                //There is already an _S1UI Folder. Check if it contains files
+                if (Directory.GetFiles(pathS1UI).Count() > 0)
+                {
+                    //There are files - Overwrite them? 
+                    var mbResult = MessageBox.Show("There are already UI Mods installed! \nDo you want to overwrite them?", "Overwrite", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                    switch (mbResult)
+                    {
+                        case MessageBoxResult.Yes:
+                            copyAllowed = true;
+                            break;
+                        case MessageBoxResult.No:
+                            copyAllowed = false;
+                            break;
+                        default:
+                            throw new Exception("Cancelled by user");
+                    }
+                }
+                else
+                {
+                    copyAllowed = true;
+                }
+            }
+            else
+            {
+                //Create the Mod directory
+                Directory.CreateDirectory(pathS1UI);
+                copyAllowed = true;
+            }
+
+            //Copy files 
+            if (copyAllowed)
+            {
+                var koreanFiles = Directory.GetFiles(BaseConsts.KOREANUIFILES_DIR);
+
+                foreach (var koreanFile in koreanFiles)
+                {
+                    FileInfo file = new FileInfo(koreanFile);
+                    string fileName = file.Name;
+                    string destinationFile = string.Format("{0}\\{1}", pathS1UI, fileName);
+                    File.Copy(koreanFile, destinationFile, true);
+                }
+            }
+
+            return true; //If code reaches this part without error, it was successful
+        }
+
+        private bool RemoveClassAnimations()
+        {
+            //TODO
+
+            return true;
         }
 
         public void ApplyConfigChanges()
@@ -241,6 +315,11 @@ namespace TERA_Tweaker.classes
         public void SetOptimizationLevel(OptimizationType optimization)
         {
             optimizationLevel = optimization;
+        }
+
+        public void SetPartyBuffOption(PartyBuffOptions option)
+        {
+            partyBuffOption = option;
         }
 
         public string GetValueOfIniFile(string iniFile, string key, string section = null)

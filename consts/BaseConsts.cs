@@ -10,7 +10,7 @@ namespace TERA_Tweaker.consts
         public const string CONFIG_DIR = "Client\\S1Game\\Config";
         public const string S1ENGINE = "S1Engine.ini";
         public const string S1INPUT = "S1Input.ini";
-        public const string S1UI_DIR = "";
+        public const string S1UI_DIR = "Client\\S1Game\\CookedPC\\Art_Data\\Packages\\_S1UI";
         public const string VIDEOS_DIR = "";
         public const string ANIMS_DIR = "";
         public const string LAUNCHER_FILENAME = "TERA-Launcher.exe";
@@ -29,6 +29,6 @@ namespace TERA_Tweaker.consts
 
         //Name for the backup untouched file
         public const string UNTOUCHED_S1ENGINE = "S1Engine_Untouched.ini";
-        public const string CONFIG_BACKUP = "Tweaker_Backup";
+        public const string CONFIG_BACKUP_FOLDER = "Tweaker_Backup";
     }
 }
