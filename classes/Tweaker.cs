@@ -88,6 +88,34 @@ namespace TERA_Tweaker.classes
                 return false;
         }
 
+        public bool ResetAdditionalTweaks()
+        {
+            return RemoveKoreanUIFiles() && ResetClassAnimations() && ResetIntroFiles();
+        }
+
+        private bool RemoveKoreanUIFiles()
+        {
+            string pathS1UI = string.Format("{0}\\{1}", _gameDir, BaseConsts.S1UI_DIR);
+            if (Directory.Exists(pathS1UI))
+            {
+                //Mod UI Folder exists -> Delete it
+                Directory.Delete(pathS1UI, true);
+            }
+            return true;
+        }
+
+        private bool ResetClassAnimations()
+        {
+            //TODO
+            return true;
+        }
+
+        private bool ResetIntroFiles()
+        {
+            //TODO
+            return true;
+        }
+
         public bool ApplyAdditionalTweaks()
         {
             return InstallKoreanUIFiles() && RemoveClassAnimations();
@@ -143,7 +171,27 @@ namespace TERA_Tweaker.classes
                     string destinationFile = string.Format("{0}\\{1}", pathS1UI, fileName);
                     File.Copy(koreanFile, destinationFile, true);
                 }
+
+
+                //Special PartyBuff Option selected?
+                string source;
+                string destination = string.Format("{0}\\{1}", pathS1UI, BaseConsts.PARTYWINDOW);
+                switch (partyBuffOption)
+                {
+                    case PartyBuffOptions.Default:
+                        //Nothing to do, was set already
+                        break;
+                    case PartyBuffOptions.WithoutPurpleBar:
+                        source = string.Format("{0}\\{1}", BaseConsts.PARTYWINDOWS_DIR, BaseConsts.PARTYWINDOW_WITHOUT_PURPLE);
+                        File.Copy(source, destination, true);
+                        break;
+                    case PartyBuffOptions.WithPurpleBar:
+                        source = string.Format("{0}\\{1}", BaseConsts.PARTYWINDOWS_DIR, BaseConsts.PARTYWINDOW_WITH_PURLE);
+                        File.Copy(source, destination, true);
+                        break;
+                }
             }
+
 
             return true; //If code reaches this part without error, it was successful
         }

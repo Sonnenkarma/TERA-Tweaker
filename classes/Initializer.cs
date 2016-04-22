@@ -82,17 +82,16 @@ namespace TERA_Tweaker.init
         public static void CreateDirectoriesForTweakFiles()
         {
             if (!Directory.Exists(BaseConsts.EMPTYVIDEOFILES_DIR))
-            {
                 Directory.CreateDirectory(BaseConsts.EMPTYVIDEOFILES_DIR);
-            }
+
             if (!Directory.Exists(BaseConsts.KOREANUIFILES_DIR))
-            {
                 Directory.CreateDirectory(BaseConsts.KOREANUIFILES_DIR);
-            }
+
             if (!Directory.Exists(BaseConsts.PRESETS_DIR))
-            {
                 Directory.CreateDirectory(BaseConsts.PRESETS_DIR);
-            }
+
+            if (!Directory.Exists(BaseConsts.PARTYWINDOWS_DIR))
+                Directory.CreateDirectory(BaseConsts.PARTYWINDOWS_DIR);
         }
     }
 }

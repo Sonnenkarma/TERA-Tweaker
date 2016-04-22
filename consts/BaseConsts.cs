@@ -19,6 +19,7 @@ namespace TERA_Tweaker.consts
         public const string PRESETS_DIR = "presets";
         public const string KOREANUIFILES_DIR = "koreanuifiles";
         public const string EMPTYVIDEOFILES_DIR = "emptyvideofiles";
+        public const string PARTYWINDOWS_DIR = "partywindows";
 
         //Config preset names
         public const string PRESET_BEST_PERFORMANCE = "S1Engine_BP.ini";
@@ -30,5 +31,10 @@ namespace TERA_Tweaker.consts
         //Name for the backup untouched file
         public const string UNTOUCHED_S1ENGINE = "S1Engine_Untouched.ini";
         public const string CONFIG_BACKUP_FOLDER = "Tweaker_Backup";
+
+        //PartyWindow-Names
+        public const string PARTYWINDOW = "S1UI_PartyWindow.gpk";
+        public const string PARTYWINDOW_WITHOUT_PURPLE = "S1UI_PartyWindow_WithoutPurple.gpk";
+        public const string PARTYWINDOW_WITH_PURLE = "S1UI_PartyWindow_WithPurple.gpk";
     }
 }
